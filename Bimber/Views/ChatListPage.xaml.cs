@@ -2,9 +2,9 @@
 
 namespace Bimber.Views
 {
-    public partial class MainPage : ContentPage
+    public partial class ChatListPage : ContentView
     {
-        public MainPage()
+        public ChatListPage()
         {
             InitializeComponent();
         }

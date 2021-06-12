@@ -1,35 +1,77 @@
-﻿<ContentPage x:Class="Bimber.MainPage"
+﻿<ContentPage x:Class="Bimber.Views.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:Bimber.ViewModels"
+    xmlns:views="clr-namespace:Bimber.Views"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    BackgroundColor="White">
+    <ContentPage.Resources>
+        <ControlTemplate x:Key="TabItemTemplate">
+            <ContentView Padding="16">
+                <Label
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill"
+                    VerticalTextAlignment="Center"
+                    FontFamily="FontIcons"
+                    FontSize="26"
+                    HorizontalTextAlignment="Center"
+                    Text="{TemplateBinding Text}"
+                    TextColor="{TemplateBinding TextColor}">
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{TemplateBinding IsSelected}"
+                            TargetType="Label"
+                            Value="True">
+                            <Setter Property="TextColor" Value="{TemplateBinding TextColorSelected}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </ContentView>
+        </ControlTemplate>
+    </ContentPage.Resources>
 
-    <StackLayout>
-        <Frame
-            Padding="24"
-            BackgroundColor="#2196F3"
-            CornerRadius="0">
-            <Label
-                FontSize="36"
-                HorizontalTextAlignment="Center"
-                Text="Welcome to Xamarin.Forms!"
-                TextColor="White" />
-        </Frame>
-        <Label
-            Padding="30,10,30,10"
-            FontSize="Title"
-            Text="Start developing now" />
-        <Label
-            Padding="30,0,30,0"
-            FontSize="16"
-            Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" />
-        <Label Padding="30,24,30,0" FontSize="16">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at " />
-                        <Span FontAttributes="Bold" Text="https://aka.ms/xamarin-quickstart" />
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-    </StackLayout>
+    <Grid>
+        <xct:TabView
+            TabIndicatorPlacement="Center"
+            TabStripBackgroundColor="White"
+            TabStripHeight="60"
+            TabStripPlacement="Bottom">
+
+            <xct:TabViewItem
+                ControlTemplate="{StaticResource TabItemTemplate}"
+                Text="{StaticResource AppIcon}"
+                TextColor="#bfc0d2"
+                TextColorSelected="{StaticResource PinkAccentColor}">
+
+                <views:CarouselPage />
+            </xct:TabViewItem>
+
+            <xct:TabViewItem
+                ControlTemplate="{StaticResource TabItemTemplate}"
+                Text="{StaticResource SuperIcon}"
+                TextColor="#bfc0d2"
+                TextColorSelected="{StaticResource GoldAccentColor}">
+
+                <views:StarredPage />
+            </xct:TabViewItem>
+
+            <xct:TabViewItem
+                ControlTemplate="{StaticResource TabItemTemplate}"
+                Text="{StaticResource ChatIcon}"
+                TextColor="#bfc0d2"
+                TextColorSelected="{StaticResource PinkAccentColor}">
+
+                <views:ChatListPage />
+            </xct:TabViewItem>
+
+            <xct:TabViewItem
+                ControlTemplate="{StaticResource TabItemTemplate}"
+                Text="{StaticResource ProfileIcon}"
+                TextColor="#bfc0d2"
+                TextColorSelected="{StaticResource PinkAccentColor}">
+
+                <views:ProfilePage />
+            </xct:TabViewItem>
+        </xct:TabView>
+    </Grid>
 </ContentPage>

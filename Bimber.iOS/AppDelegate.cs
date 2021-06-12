@@ -11,6 +11,7 @@ namespace Bimber.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Forms.Init();
+            Xamarin.Forms.Nuke.FormsHandler.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

@@ -1,0 +1,272 @@
+﻿<ContentView x:Class="Bimber.Views.ProfilePage" x:DataType="viewmodels:ProfilePageViewModel"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:sh="http://sharpnado.com"
+    xmlns:viewmodels="clr-namespace:Bimber.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
+                                      Dark={StaticResource BackgroundColorDark}}">
+    <ContentView.Content>
+        <ScrollView>
+            <Grid RowSpacing="0">
+                <StackLayout Spacing="0">
+                    <Image
+                        WidthRequest="100"
+                        HeightRequest="100"
+                        Margin="0,16,0,0"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Source="https://avatars.githubusercontent.com/u/7996711?v=4">
+                        <Image.Clip>
+                            <EllipseGeometry
+                                Center="50,50"
+                                RadiusX="50"
+                                RadiusY="50" />
+                        </Image.Clip>
+                    </Image>
+
+                    <Label Style="{StaticResource AboutTitleLabel}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Kacper, 21" />
+                                <Span
+                                    FontFamily="FontIcons"
+                                    FontSize="32"
+                                    Text="&#xF1D8;"
+                                    TextColor="#278dfc" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label
+                        Margin="0,0,0,12"
+                        Style="{StaticResource AboutDescLabel}"
+                        Text="Xamarin Developer" />
+
+                    <Grid
+                        HeightRequest="180"
+                        VerticalOptions="Fill"
+                        ColumnDefinitions="11*,26*,26*,26*,11*"
+                        ColumnSpacing="0"
+                        RowDefinitions="40*,15*,40*"
+                        RowSpacing="0">
+
+                        <!--  For easier design  -->
+                        <!--<BoxView BackgroundColor="Pink" />
+                        <BoxView Grid.Column="1" BackgroundColor="Honeydew" />
+                        <BoxView Grid.Column="2" BackgroundColor="AliceBlue" />
+                        <BoxView Grid.Column="3" BackgroundColor="Azure" />
+                        <BoxView Grid.Column="4" BackgroundColor="Beige" />
+
+                        <BoxView
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            BackgroundColor="Beige" />
+                        <BoxView
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            BackgroundColor="Bisque" />-->
+
+                        <sh:Shadows
+                            Grid.Column="1"
+                            CornerRadius="24"
+                            Shades="{sh:SingleShade Opacity=0.5,
+                                                    Color=Gray}">
+                            <Frame
+                                WidthRequest="48"
+                                HeightRequest="48"
+                                Padding="0"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Start"
+                                xct:TouchEffect.AnimationDuration="250"
+                                xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+                                xct:TouchEffect.Command="{Binding SettingsCommand}"
+                                xct:TouchEffect.PressedScale="0.8"
+                                BackgroundColor="White"
+                                CornerRadius="24"
+                                HasShadow="False"
+                                Visual="Default">
+                                <Image HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Image.Source>
+                                        <FontImageSource
+                                            FontFamily="FontIcons"
+                                            Glyph="&#xE713;"
+                                            Size="24"
+                                            Color="#c3c7d0" />
+                                    </Image.Source>
+                                </Image>
+                            </Frame>
+                        </sh:Shadows>
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="0,0,0,8"
+                            VerticalOptions="End"
+                            VerticalTextAlignment="End"
+                            FontFamily="LatoSemiBold"
+                            FontSize="10"
+                            HorizontalTextAlignment="Center"
+                            Text="USTAWIENIA"
+                            TextColor="#bdbec0" />
+
+
+                        <!--  Xamarin application development is a bug mine:  https://github.com/xamarin/Xamarin.Forms/issues/13058  -->
+                        <Button
+                            Grid.Column="2"
+                            WidthRequest="64"
+                            HeightRequest="64"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Start"
+                            CornerRadius="32"
+                            FontFamily="FontIcons"
+                            FontSize="32"
+                            Text="&#xE114;"
+                            TextColor="White"
+                            Visual="Default">
+                            <!--  Visual="Material"  -->
+                            <Button.Background>
+                                <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                                    <GradientStop Offset="0" Color="#fc685c" />
+                                    <GradientStop Offset="1.0" Color="#fa3676" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Frame
+                            Grid.Column="2"
+                            WidthRequest="20"
+                            HeightRequest="20"
+                            Margin="0,0,16,12"
+                            Padding="0"
+                            HorizontalOptions="End"
+                            VerticalOptions="End"
+                            BackgroundColor="White"
+                            CornerRadius="10"
+                            Visual="Material">
+                            <Image HorizontalOptions="Center" VerticalOptions="Center">
+                                <Image.Source>
+                                    <FontImageSource
+                                        FontFamily="FontIcons"
+                                        Glyph="&#xE710;"
+                                        Size="12"
+                                        Color="#f24e71" />
+                                </Image.Source>
+                            </Image>
+                        </Frame>
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Start"
+                            FontFamily="LatoSemiBold"
+                            FontSize="10"
+                            Text="DODAJ MEDIA"
+                            TextColor="#bdbec0" />
+
+                        <sh:Shadows
+                            Grid.Column="3"
+                            CornerRadius="24"
+                            Shades="{sh:SingleShade Opacity=0.5,
+                                                    Color=Gray}">
+                            <Frame
+                                WidthRequest="48"
+                                HeightRequest="48"
+                                Padding="0"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Start"
+                                xct:TouchEffect.AnimationDuration="250"
+                                xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+                                xct:TouchEffect.PressedScale="0.8"
+                                BackgroundColor="White"
+                                CornerRadius="24"
+                                HasShadow="False"
+                                Visual="Default">
+                                <Image HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Image.Source>
+                                        <FontImageSource
+                                            FontFamily="FontIcons"
+                                            Glyph="&#xE104;"
+                                            Size="24"
+                                            Color="#c3c7d0" />
+                                    </Image.Source>
+                                </Image>
+                            </Frame>
+                        </sh:Shadows>
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="3"
+                            Margin="0,0,0,8"
+                            VerticalOptions="End"
+                            VerticalTextAlignment="End"
+                            FontFamily="LatoSemiBold"
+                            FontSize="10"
+                            HorizontalTextAlignment="Center"
+                            Text="EDYTUJ INFO"
+                            TextColor="#bdbec0" />
+
+                        <Frame
+                            Grid.Row="2"
+                            Grid.ColumnSpan="5"
+                            Margin="12,0,12,12"
+                            Padding="12"
+                            VerticalOptions="Center"
+                            CornerRadius="8"
+                            HasShadow="False">
+                            <Frame.Background>
+                                <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                                    <GradientStop Offset="0" Color="#fd73ae" />
+                                    <GradientStop Offset="1.0" Color="#f6a891" />
+                                </LinearGradientBrush>
+                            </Frame.Background>
+                            <Grid ColumnDefinitions="85*,15*">
+                                <Label
+                                    VerticalOptions="Center"
+                                    FontFamily="LatoSemiBold"
+                                    Text="Chcesz znaleźć więcej par? Zrezygnuj z selfie"
+                                    TextColor="White" />
+                                <Frame
+                                    Grid.Column="1"
+                                    WidthRequest="28"
+                                    HeightRequest="28"
+                                    Padding="0"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Center"
+                                    BackgroundColor="White"
+                                    CornerRadius="14"
+                                    Visual="Material">
+                                    <Image HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Image.Source>
+                                            <FontImageSource
+                                                FontFamily="FontIcons"
+                                                Glyph="&#xE710;"
+                                                Size="16"
+                                                Color="#f24e71" />
+                                        </Image.Source>
+                                    </Image>
+                                </Frame>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                    <StackLayout
+                        Grid.Row="1"
+                        BackgroundColor="#f5f6fb"
+                        Spacing="0">
+                        <CarouselView HeightRequest="120" />
+
+                        <Button
+                            HeightRequest="48"
+                            Margin="64,12"
+                            HorizontalOptions="Fill"
+                            VerticalOptions="End"
+                            BackgroundColor="White"
+                            Command="{Binding OpenGithubCommand}"
+                            CornerRadius="24"
+                            Text="MÓJ TINDER PLUS®"
+                            TextColor="{StaticResource PinkAccentColor}"
+                            Visual="Material" />
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+        </ScrollView>
+    </ContentView.Content>
+</ContentView>

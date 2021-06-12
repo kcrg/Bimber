@@ -1,3 +1,16 @@
-﻿<Application x:Class="Bimber.App"
+﻿<prism:PrismApplication x:Class="Bimber.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" />
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
+    xmlns:styles="clr-namespace:Bimber.Styles">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Values/Colors.xaml" />
+                <ResourceDictionary Source="Styles/Values/FontIcons.xaml" />
+                <styles:ProfilePageStyle />
+                <!--<styles:ToDoListPageStyle />-->
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</prism:PrismApplication>
