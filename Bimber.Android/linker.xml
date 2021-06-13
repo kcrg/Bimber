@@ -1,0 +1,9 @@
+<linker>
+  <assembly fullname="DryIoc">
+    <type fullname="*" />
+  </assembly>
+
+  <assembly fullname="Bimber">
+    <type fullname="*" />
+  </assembly>
+</linker>

@@ -84,13 +84,19 @@ namespace Bimber.ViewModels
         private void UpdateVisuals(BimberPromoModel bimberPromoModel)
         {
             ButtonTextColor = bimberPromoModel.ButtonTextColor;
-            ButtonText = bimberPromoModel.ButtonText;
             PromoColor = bimberPromoModel.PromoColor;
+
+            if (ButtonText == bimberPromoModel.ButtonText)
+            {
+                return;
+            }
+
+            ButtonText = bimberPromoModel.ButtonText;
         }
 
         private void LoadPromoList()
         {
-            var bimberPlatinum = new BimberPromoModel()
+            BimberPromoModel bimberPlatinum = new()
             {
                 Title = "Bimber Platinum",
                 Description = "Odkryj zupełnie nowy potencjał Bimbera",
@@ -99,7 +105,7 @@ namespace Bimber.ViewModels
                 PromoColor = Color.Black,
                 ButtonTextColor = Color.Black
             };
-            var bimberLikes = new BimberPromoModel()
+            BimberPromoModel bimberLikes = new()
             {
                 Title = "Polubiły Cię 4 osoby",
                 Description = "Zobacz ich w wersji Bimber Gold™",
@@ -108,7 +114,7 @@ namespace Bimber.ViewModels
                 PromoColor = Color.FromHex("#e3a955"),
                 ButtonTextColor = Color.FromHex("#e3a955")
             };
-            var bimberFast = new BimberPromoModel()
+            BimberPromoModel bimberFast = new()
             {
                 Title = "Twórz pary jeszcze szybciej",
                 Description = "Wylansuj swój profil raz w miesiącu!",
@@ -117,7 +123,7 @@ namespace Bimber.ViewModels
                 PromoColor = Color.FromHex("#d157ff"),
                 ButtonTextColor = Color.FromHex("#ea5165")
             };
-            var bimberSuper = new BimberPromoModel()
+            BimberPromoModel bimberSuper = new()
             {
                 Title = "Wyróżnij się superlajkami",
                 Description = "Masz trzykrotnie więcej szans na znalezienie pary!",
@@ -126,7 +132,7 @@ namespace Bimber.ViewModels
                 PromoColor = Color.FromHex("#04cef4"),
                 ButtonTextColor = Color.FromHex("#ea5165")
             };
-            var bimberWorldwide = new BimberPromoModel()
+            BimberPromoModel bimberWorldwide = new()
             {
                 Title = "Szukaj par na całym świecie",
                 Description = "Wraz z wersją Bimber Plus® otrzymasz Paszport do dowolnego miejsca na świecie!",
@@ -135,7 +141,7 @@ namespace Bimber.ViewModels
                 PromoColor = Color.FromHex("#033e82"),
                 ButtonTextColor = Color.FromHex("#ea5165")
             };
-            var bimberLock = new BimberPromoModel()
+            BimberPromoModel bimberLock = new()
             {
                 Title = "Wiek i odległość pod Twoją kontrolą",
                 Description = "W wersji Bimber Plus® to ty decydujesz, co zobaczą inni użytkownicy.",
@@ -144,7 +150,7 @@ namespace Bimber.ViewModels
                 PromoColor = Color.FromHex("#fc8f7a"),
                 ButtonTextColor = Color.FromHex("#ea5165")
             };
-            var bimberRedo = new BimberPromoModel()
+            BimberPromoModel bimberRedo = new()
             {
                 Title = "Ponowny wybór bez ograniczeń",
                 Description = "W wersji Bimber Plus® otrzymasz nielimitowaną Drugą szansę!",
@@ -153,7 +159,7 @@ namespace Bimber.ViewModels
                 PromoColor = Color.FromHex("#fcd403"),
                 ButtonTextColor = Color.FromHex("#ea5165")
             };
-            var bimberUnlimited = new BimberPromoModel()
+            BimberPromoModel bimberUnlimited = new()
             {
                 Title = "Zwiększ swoje szanse",
                 Description = "W wersji Bimber Plus® otrzymasz nielimitowaną liczbę Polubień!",

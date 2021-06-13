@@ -261,7 +261,6 @@
                             CurrentItemChangedCommand="{Binding ItemChangedCommand}"
                             CurrentItemChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=CurrentItem}"
                             IndicatorView="indicatorView"
-                            InputTransparent="True"
                             ItemsSource="{Binding PromoList}">
                             <CarouselView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Horizontal" SnapPointsType="MandatorySingle" />

@@ -56,11 +56,9 @@ namespace Bimber.Droid
                 window.SetNavigationBarColor(color);
             }
 
-            using (var controller = WindowCompat.GetInsetsController(window, window.DecorView.RootView))
-            {
-                controller.AppearanceLightStatusBars = currentTheme == OSAppTheme.Light;
-                controller.AppearanceLightNavigationBars = currentTheme == OSAppTheme.Light;
-            }
+            using var controller = WindowCompat.GetInsetsController(window, window.DecorView.RootView);
+            controller.AppearanceLightStatusBars = currentTheme == OSAppTheme.Light;
+            controller.AppearanceLightNavigationBars = currentTheme == OSAppTheme.Light;
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
