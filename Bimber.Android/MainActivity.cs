@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Runtime;
 using AndroidX.Core.View;
 using Prism;
+using Acr.UserDialogs;
 using Prism.Ioc;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -24,6 +25,7 @@ namespace Bimber.Droid
             Forms.Init(this, savedInstanceState);
             Android.Glide.Forms.Init(this, debug: true);
             FormsMaterial.Init(this, savedInstanceState);
+            UserDialogs.Init(this);
             LoadApplication(new App(new AndroidInitializer()));
 
             SetStatusBarColor();

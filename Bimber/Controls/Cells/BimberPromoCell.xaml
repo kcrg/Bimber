@@ -2,26 +2,35 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:models="clr-namespace:Bimber.Models">
-    <Grid ColumnDefinitions="20*,80*" RowDefinitions="25*,75*">
+    <Grid ColumnDefinitions="20*,80*" RowDefinitions="30*,50*">
         <Label
+            Margin="12,0,0,0"
             HorizontalOptions="Center"
             VerticalOptions="Center"
+            FontFamily="FontIcons"
+            FontSize="22"
             Text="{Binding Glyph}"
             TextColor="{Binding PromoColor}" />
 
         <Label
-            Grid.RowSpan="2"
             Grid.ColumnSpan="2"
             HorizontalOptions="Center"
             VerticalOptions="Center"
-            Text="{Binding Title}" />
+            FontFamily="LatoBold"
+            FontSize="16"
+            Text="{Binding Title}"
+            TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
+                                        Dark={StaticResource ContrastColorDark}}" />
 
         <Label
             Grid.Row="1"
             Grid.ColumnSpan="2"
             HorizontalOptions="Center"
             VerticalOptions="Start"
-            Text="{Binding Description}" />
+            FontSize="14"
+            HorizontalTextAlignment="Center"
+            Text="{Binding Description}"
+            TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
+                                        Dark={StaticResource ContrastColorDark}}" />
     </Grid>
-
 </DataTemplate>

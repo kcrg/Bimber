@@ -20,12 +20,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.514" />
     <PackageReference Include="MLToolkit.Forms.SwipeCardView" Version="2.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="8.1.97" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
     <PackageReference Include="RestSharp" Version="106.11.7" />
     <PackageReference Include="Sharpnado.Shadows" Version="1.2.0" />
-    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0-pre2" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.1.0-preview1062" />
     <PackageReference Include="Xamarin.Essentials.Interfaces" Version="1.6.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2012" />
