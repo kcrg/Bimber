@@ -1,29 +1,165 @@
-﻿<ContentView x:Class="Bimber.Views.CarouselPage"
+﻿<ContentView x:Class="Bimber.Views.CarouselPage" x:DataType="viewmodels:CarouselPageViewModel"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:Bimber.Models"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     xmlns:scv="clr-namespace:MLToolkit.Forms.SwipeCardView;assembly=MLToolkit.Forms.SwipeCardView"
-    BackgroundColor="White">
+    xmlns:viewmodels="clr-namespace:Bimber.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
+                                      Dark={StaticResource BackgroundColorDark}}">
     <Grid>
-        <scv:SwipeCardView VerticalOptions="FillAndExpand" LoopCards="True">
+        <scv:SwipeCardView x:Name="swipeCardView"
+            VerticalOptions="FillAndExpand"
+            AnimationLength="220"
+            BackCardScale="0.96"
+            Dragging="OnDragging"
+            ItemsSource="{Binding PeopleList}"
+            LoopCards="True"
+            SupportedSwipeDirections="Left, Right, Up"
+            Threshold="{Binding Threshold, Mode=OneWayToSource}">
             <scv:SwipeCardView.ItemTemplate>
-                <DataTemplate>
-                    <Frame>
-                        <Label
-                            VerticalTextAlignment="Center"
-                            BackgroundColor="Beige"
-                            FontSize="Large"
-                            HorizontalTextAlignment="Center"
-                            Text="{Binding .}" />
-                    </Frame>
+                <DataTemplate x:DataType="models:PersonModel">
+                    <ContentView>
+                        <Frame
+                            Margin="4,12,4,4"
+                            Padding="0"
+                            CornerRadius="8">
+                            <Grid>
+                                <Image
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill"
+                                    Aspect="AspectFill"
+                                    Source="{Binding Avatar}" />
+
+                                <ContentView>
+                                    <ContentView.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Offset="0.60" Color="#00ffffff" />
+                                            <GradientStop Offset="0.80" Color="#66040404" />
+                                            <GradientStop Offset="1" Color="#000004" />
+                                        </LinearGradientBrush>
+                                    </ContentView.Background>
+                                </ContentView>
+
+                                <Label x:Name="likeLabel"
+                                    Margin="8,18,0,0"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Start"
+                                    FontAttributes="Bold"
+                                    FontFamily="Bold"
+                                    FontSize="64"
+                                    Opacity="0"
+                                    Rotation="-30"
+                                    Text="LIKE"
+                                    TextColor="#39cb7a" />
+
+                                <Label x:Name="nopeLabel"
+                                    Margin="0,24,8,0"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Start"
+                                    FontAttributes="Bold"
+                                    FontFamily="Bold"
+                                    FontSize="64"
+                                    Opacity="0"
+                                    Rotation="30"
+                                    Text="NOPE"
+                                    TextColor="#f5506e" />
+
+                                <Label x:Name="superLabel"
+                                    Margin="0,0,0,64"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="End"
+                                    FontAttributes="Bold"
+                                    FontFamily="Bold"
+                                    FontSize="64"
+                                    HorizontalTextAlignment="Center"
+                                    LineHeight=".8"
+                                    Opacity="0"
+                                    Rotation="-15"
+                                    Text="SUPER&#x0a;LIKE"
+                                    TextColor="#44a2fa" />
+                            </Grid>
+                        </Frame>
+                    </ContentView>
                 </DataTemplate>
             </scv:SwipeCardView.ItemTemplate>
-            <scv:SwipeCardView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Card 1</x:String>
-                    <x:String>Card 2</x:String>
-                    <x:String>Card 3</x:String>
-                </x:Array>
-            </scv:SwipeCardView.ItemsSource>
         </scv:SwipeCardView>
+
+        <StackLayout
+            Margin="0,0,0,20"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            Orientation="Horizontal"
+            Spacing="24">
+
+            <Frame x:Name="nopeButton"
+                WidthRequest="56"
+                HeightRequest="56"
+                Padding="0"
+                xct:TouchEffect.AnimationDuration="100"
+                xct:TouchEffect.NativeAnimation="True"
+                xct:TouchEffect.PressedScale="0.8"
+                BackgroundColor="White"
+                CornerRadius="28"
+                HasShadow="False">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnButtonTapped" />
+                </Frame.GestureRecognizers>
+                <Label
+                    VerticalTextAlignment="Center"
+                    FontFamily="FontIcons"
+                    FontSize="28"
+                    HorizontalTextAlignment="Center"
+                    Text="{StaticResource NopeIcon}"
+                    TextColor="#f2536f" />
+            </Frame>
+
+            <Frame x:Name="superButton"
+                WidthRequest="48"
+                HeightRequest="48"
+                Padding="0"
+                VerticalOptions="Center"
+                xct:TouchEffect.AnimationDuration="100"
+                xct:TouchEffect.NativeAnimation="True"
+                xct:TouchEffect.PressedScale="0.8"
+                BackgroundColor="White"
+                CornerRadius="24"
+                HasShadow="False">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnButtonTapped" />
+                </Frame.GestureRecognizers>
+                <Label
+                    VerticalTextAlignment="Center"
+                    FontFamily="FontIcons"
+                    FontSize="22"
+                    HorizontalTextAlignment="Center"
+                    Text="{StaticResource SuperIcon}"
+                    TextColor="#36c7f6" />
+            </Frame>
+
+            <Frame x:Name="likeButton"
+                WidthRequest="56"
+                HeightRequest="56"
+                Padding="0"
+                xct:TouchEffect.AnimationDuration="100"
+                xct:TouchEffect.NativeAnimation="True"
+                xct:TouchEffect.PressedScale="0.8"
+                BackgroundColor="White"
+                CornerRadius="28"
+                HasShadow="False">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnButtonTapped" />
+                </Frame.GestureRecognizers>
+                <Label
+                    VerticalTextAlignment="Center"
+                    FontFamily="FontIcons"
+                    FontSize="28"
+                    HorizontalTextAlignment="Center"
+                    Text="{StaticResource LikeIcon}"
+                    TextColor="#21eac0" />
+            </Frame>
+        </StackLayout>
     </Grid>
 </ContentView>

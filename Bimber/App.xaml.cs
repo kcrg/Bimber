@@ -1,4 +1,6 @@
-﻿using Bimber.ViewModels;
+﻿using Bimber.Services;
+using Bimber.Services.Implementations;
+using Bimber.ViewModels;
 using Bimber.Views;
 using Prism;
 using Prism.DryIoc;
@@ -11,6 +13,7 @@ using Xamarin.Forms.Xaml;
 [assembly: ExportFont("SegoeFluentIcons.ttf", Alias = "FontIcons")]
 [assembly: ExportFont("Lato-Bold.ttf", Alias = "LatoBold")]
 [assembly: ExportFont("Lato-Semibold.ttf", Alias = "LatoSemiBold")]
+[assembly: ExportFont("BoldFont.ttf", Alias = "Bold")]
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Bimber
 {
@@ -23,17 +26,17 @@ namespace Bimber
             InitializeComponent();
             Sharpnado.Shades.Initializer.Initialize(loggerEnable: false);
 
-            await NavigationService.NavigateAsync("MainPage").ConfigureAwait(false);
+            await NavigationService.NavigateAsync(nameof(MainPage)).ConfigureAwait(false);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
-            //containerRegistry.Register(typeof(IRestService), typeof(RestService));
+            containerRegistry.Register(typeof(IRestService), typeof(RestService));
 
-            containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage>();
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
+            containerRegistry.RegisterForNavigation<PersonPage, PersonPageViewModel>();
         }
     }
 }
