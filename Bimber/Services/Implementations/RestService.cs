@@ -27,16 +27,14 @@ namespace Bimber.Services.Implementations
             request.AddParameter("email", email, ParameterType.GetOrPost);
             request.AddParameter("password", password, ParameterType.GetOrPost);
 
-            var response = await restClient.PostAsync<LoginResponseModel>(request).ConfigureAwait(false);
-
-            return response;
+            return await restClient.PostAsync<LoginResponseModel>(request).ConfigureAwait(false);
         }
 
         public async Task<LoginResponseModel> RegisterAsync(string email, string password)
         {
             var request = new RestRequest("register", Method.POST, DataFormat.Json);
-            request.AddParameter("email", email, ParameterType.QueryString);
-            request.AddParameter("password", password, ParameterType.QueryString);
+            request.AddParameter("email", email, ParameterType.GetOrPost);
+            request.AddParameter("password", password, ParameterType.GetOrPost);
             return await restClient.PostAsync<LoginResponseModel>(request).ConfigureAwait(false);
         }
     }

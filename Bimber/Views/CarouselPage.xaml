@@ -16,8 +16,9 @@
             BackCardScale="0.96"
             Dragging="OnDragging"
             ItemsSource="{Binding PeopleList}"
-            LoopCards="True"
             SupportedSwipeDirections="Left, Right, Up"
+            SwipedCommand="{Binding SwipedCommand}"
+            SwipedCommandParameter="{Binding Source={RelativeSource Self}, Path=TopItem}"
             Threshold="{Binding Threshold, Mode=OneWayToSource}">
             <scv:SwipeCardView.ItemTemplate>
                 <DataTemplate x:DataType="models:PersonModel">
@@ -33,6 +34,12 @@
                                     Aspect="AspectFill"
                                     Source="{Binding Avatar}" />
 
+                                <Label
+                                    Margin="0,8,12,0"
+                                    HorizontalOptions="End"
+                                    Text="{Binding Id}"
+                                    TextColor="Gray" />
+
                                 <ContentView>
                                     <ContentView.Background>
                                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -42,6 +49,24 @@
                                         </LinearGradientBrush>
                                     </ContentView.Background>
                                 </ContentView>
+
+                                <Label
+                                    Margin="16,0,0,88"
+                                    VerticalOptions="End"
+                                    FontFamily="LatoBold"
+                                    FontSize="32"
+                                    Text="{Binding FirstName}"
+                                    TextColor="White">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding FirstName}" />
+                                            <Span Text=" " />
+                                            <Span Text="{Binding LastName}" />
+                                            <Span Text="&#x0a;" />
+                                            <Span FontSize="24" Text="{Binding Email}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
 
                                 <Label x:Name="likeLabel"
                                     Margin="8,18,0,0"
@@ -87,6 +112,19 @@
             </scv:SwipeCardView.ItemTemplate>
         </scv:SwipeCardView>
 
+        <Button
+            HeightRequest="48"
+            Margin="64,12"
+            HorizontalOptions="Fill"
+            VerticalOptions="Center"
+            BackgroundColor="White"
+            Command="{Binding LoadAgainCommand}"
+            CornerRadius="24"
+            IsVisible="{Binding LoadAgainButtonVisibility}"
+            Text="ZAŁADUJ PONOWNIE"
+            TextColor="#ea5165"
+            Visual="Material" />
+
         <StackLayout
             Margin="0,0,0,20"
             HorizontalOptions="Center"
@@ -103,7 +141,7 @@
                 xct:TouchEffect.PressedScale="0.8"
                 BackgroundColor="White"
                 CornerRadius="28"
-                HasShadow="False">
+                HasShadow="True">
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnButtonTapped" />
                 </Frame.GestureRecognizers>
@@ -126,7 +164,7 @@
                 xct:TouchEffect.PressedScale="0.8"
                 BackgroundColor="White"
                 CornerRadius="24"
-                HasShadow="False">
+                HasShadow="True">
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnButtonTapped" />
                 </Frame.GestureRecognizers>
@@ -148,7 +186,7 @@
                 xct:TouchEffect.PressedScale="0.8"
                 BackgroundColor="White"
                 CornerRadius="28"
-                HasShadow="False">
+                HasShadow="True">
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnButtonTapped" />
                 </Frame.GestureRecognizers>

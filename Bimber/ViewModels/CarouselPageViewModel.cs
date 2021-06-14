@@ -1,56 +1,49 @@
-﻿using Bimber.Models;
+﻿using Acr.UserDialogs;
+using Bimber.Extensions;
+using Bimber.Models;
 using Bimber.Services;
+using MLToolkit.Forms.SwipeCardView.Core;
+using Prism.Commands;
 using Prism.Mvvm;
-using Prism.Navigation;
-using PropertyChanged;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Bimber.ViewModels
 {
-    [AddINotifyPropertyChangedInterface]
     public class CarouselPageViewModel : BindableBase
     {
         private readonly IRestService restService;
 
-        private bool _isLoading = true;
+        private int pagination = 1;
 
-        public bool IsLoading
-        {
-            get => _isLoading;
-            set => SetProperty(ref _isLoading, value);
-        }
+        //private bool _isLoading = true;
+        //public bool IsLoading
+        //{
+        //    get => _isLoading;
+        //    set => SetProperty(ref _isLoading, value);
+        //}
+        public int Threshold { get; set; }
 
-        private uint _threshold;
-        public uint Threshold
-        {
-            get => _threshold;
-            set => SetProperty(ref _threshold, value);
-        }
+        public bool LoadAgainButtonVisibility { get; set; }
 
-        public ObservableCollection<PersonModel> PeopleList { get; set; }
-        //public DelegateCommand<PersonModel> ItemTappedCommand { get; }
+        public SafeObservableCollection<PersonModel> PeopleList { get; set; }
+        public DelegateCommand<object> SwipedCommand { get; }
+        public DelegateCommand LoadAgainCommand { get; }
+
         public CarouselPageViewModel(IRestService restService)
         {
             this.restService = restService;
 
-            PeopleList = new ObservableCollection<PersonModel>();
+            PeopleList = new SafeObservableCollection<PersonModel>();
 
-            //ItemTappedCommand = new DelegateCommand<PersonModel>((person) => MainThread.BeginInvokeOnMainThread(async () => await NavigateToPersonPage(person).ConfigureAwait(false)));
+            SwipedCommand = new DelegateCommand<object>(async (currentItem) => await LoadMoreDataAsync(currentItem).ConfigureAwait(false));
+
+            LoadAgainCommand = new DelegateCommand(async () => await LoadDataAsync().ConfigureAwait(false));
 
             Task.Run(() => this.LoadDataAsync()).Wait();
         }
 
-        //private async Task NavigateToPersonPage(PersonModel person)
-        //{
-        //    var navigationParams = new NavigationParameters
-        //    {
-        //        { "person", new PersonModel() }
-        //    };
-        //    await this.navigationService.NavigateAsync("PersonPage", navigationParams, useModalNavigation: false).ConfigureAwait(false);
-        //}
-
-        public async Task LoadDataAsync()
+        private async Task LoadDataAsync()
         {
             if (PeopleList.Count > 0)
             {
@@ -64,11 +57,51 @@ namespace Bimber.ViewModels
                 return;
             }
 
-            foreach (var todo in response.Data)
+            Device.BeginInvokeOnMainThread(() => PeopleList.AddRange(response.Data));
+
+            LoadAgainButtonVisibility = false;
+            pagination = 1;
+            //IsLoading = false;
+        }
+
+        private async Task LoadMoreDataAsync(object? eventArgsObject = null)
+        {
+            if (!(eventArgsObject is SwipedCardEventArgs eventArgs))
             {
-                PeopleList.Add(todo);
+                return;
             }
-            IsLoading = false;
+            if (!(eventArgs.Item is PersonModel person))
+            {
+                return;
+            }
+
+            if (PeopleList.Count > 0 && 6 * pagination > person.Id)
+            {
+                return;
+            }
+            pagination++;
+
+            var response = await restService.GetPeopleAsync(pagination).ConfigureAwait(false);
+
+            if (response.TotalPages < pagination || response is null || response.Data is null || response.Data.Count == 0)
+            {
+                ShowToastMessage("There are no more people in your neighborhood.");
+
+                PeopleList.Clear();
+
+                LoadAgainButtonVisibility = true;
+
+                return;
+            }
+
+            Device.BeginInvokeOnMainThread(() => PeopleList.Reset(response.Data));
+
+            //IsLoading = false;
+        }
+
+        private void ShowToastMessage(string message)
+        {
+            UserDialogs.Instance.Toast(message);
         }
     }
 }
