@@ -5,6 +5,7 @@ using Bimber.Views;
 using Prism;
 using Prism.DryIoc;
 using Prism.Ioc;
+using Xamarin.Essentials;
 using Xamarin.Essentials.Implementation;
 using Xamarin.Essentials.Interfaces;
 using Xamarin.Forms;
@@ -26,15 +27,25 @@ namespace Bimber
             InitializeComponent();
             Sharpnado.Shades.Initializer.Initialize(loggerEnable: false);
 
-            await NavigationService.NavigateAsync(nameof(MainPage)).ConfigureAwait(false);
+            string token = Preferences.Get("token", string.Empty);
+
+            if (string.IsNullOrEmpty(token))
+            {
+                await NavigationService.NavigateAsync(nameof(LoginPage)).ConfigureAwait(false);
+            }
+            else
+            {
+                await NavigationService.NavigateAsync(nameof(Views.MainPage)).ConfigureAwait(false);
+            }
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
-            containerRegistry.Register(typeof(IRestService), typeof(RestService));
+            containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>()
+                .Register(typeof(IRestService), typeof(RestService));
 
             containerRegistry.RegisterForNavigation<MainPage>();
+            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<PersonPage, PersonPageViewModel>();
         }

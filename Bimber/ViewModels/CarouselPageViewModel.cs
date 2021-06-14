@@ -12,7 +12,6 @@ namespace Bimber.ViewModels
     public class CarouselPageViewModel : BindableBase
     {
         private readonly IRestService restService;
-        private readonly INavigationService navigationService;
 
         private bool _isLoading = true;
 
@@ -31,10 +30,9 @@ namespace Bimber.ViewModels
 
         public ObservableCollection<PersonModel> PeopleList { get; set; }
         //public DelegateCommand<PersonModel> ItemTappedCommand { get; }
-        public CarouselPageViewModel(IRestService restService, INavigationService navigationService)
+        public CarouselPageViewModel(IRestService restService)
         {
             this.restService = restService;
-            this.navigationService = navigationService;
 
             PeopleList = new ObservableCollection<PersonModel>();
 

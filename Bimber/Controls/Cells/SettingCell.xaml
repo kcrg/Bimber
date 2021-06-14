@@ -9,14 +9,12 @@
     <Label x:Name="titleLabel"
         VerticalOptions="Center"
         FontSize="16"
-        Text="Numer telefonu"
         TextColor="Black" />
 
     <Label x:Name="descriptionLabel"
         HorizontalOptions="EndAndExpand"
         VerticalOptions="Center"
         FontSize="16"
-        Text="733428869"
         TextColor="#818181" />
 
     <Label

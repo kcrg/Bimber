@@ -60,6 +60,11 @@
                         Title="E-mail"
                         xct:TouchEffect.Command="{Binding EmailCommand}"
                         Description="kacper@tryniecki.com" />
+                    <BoxView
+                        HeightRequest="1"
+                        Margin="12,0,0,0"
+                        Color="#d7d7d7" />
+                    <cells:SettingCell Title="Wyloguj" xct:TouchEffect.Command="{Binding LogoutCommand}" />
                     <BoxView HeightRequest="1" Color="#d7d7d7" />
                 </StackLayout>
                 <Label

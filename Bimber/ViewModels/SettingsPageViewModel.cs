@@ -3,6 +3,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace Bimber.ViewModels
@@ -15,6 +16,7 @@ namespace Bimber.ViewModels
         public DelegateCommand PhoneCommand { get; }
         public DelegateCommand GithubCommand { get; }
         public DelegateCommand EmailCommand { get; }
+        public DelegateCommand LogoutCommand { get; }
 
         public SettingsPageViewModel(INavigationService navigationService)
         {
@@ -63,6 +65,15 @@ namespace Bimber.ViewModels
                     ShowToastMessage($"An error occurred while opening the email application. {ex.Message}");
                 }
             });
+
+            LogoutCommand = new DelegateCommand(Logout);
+        }
+
+        private void Logout()
+        {
+            Preferences.Remove("token");
+
+            MainThread.BeginInvokeOnMainThread(async () => await this.navigationService.NavigateAsync("app:///LoginPage").ConfigureAwait(false));
         }
 
         private void ShowToastMessage(string message)
