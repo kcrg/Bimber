@@ -32,6 +32,7 @@
 
     <Grid>
         <xct:TabView
+            IsSwipeEnabled="False"
             IsTabTransitionEnabled="False"
             TabIndicatorPlacement="Center"
             TabStripBackgroundColor="White"

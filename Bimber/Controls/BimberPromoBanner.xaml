@@ -1,0 +1,30 @@
+﻿<Frame x:Class="Bimber.Controls.BimberPromoBanner"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Padding="12"
+    CornerRadius="8">
+    <StackLayout Spacing="0">
+        <Label HorizontalOptions="Center" TextColor="#424242">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span x:Name="promoIconSpan"
+                        FontFamily="FontIcons"
+                        FontSize="18"
+                        Text="{StaticResource AppIcon}" />
+                    <Span x:Name="promoSpan"
+                        FontFamily="LatoBold"
+                        FontSize="16"
+                        Text=" Bimber " />
+                    <Span x:Name="promoNameSpan"
+                        FontFamily="LatoSemiBold"
+                        FontSize="10"
+                        Text="PLATINUM" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Label x:Name="descriptionLabel"
+            HorizontalOptions="Center"
+            Text="Randki w klasie premium"
+            TextColor="#b9b8be" />
+    </StackLayout>
+</Frame>

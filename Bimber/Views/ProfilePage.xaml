@@ -100,6 +100,7 @@
                                 </Image>
                             </Frame>
                         </sh:Shadows>
+                        <!--  CharacterSpacing  -->
                         <Label
                             Grid.Row="0"
                             Grid.Column="1"
@@ -280,7 +281,7 @@
                             HorizontalOptions="Fill"
                             VerticalOptions="End"
                             BackgroundColor="White"
-                            Command="{Binding OpenGithubCommand}"
+                            Command="{Binding GithubCommand}"
                             CornerRadius="24"
                             Text="{Binding ButtonText}"
                             TextColor="{Binding ButtonTextColor}"

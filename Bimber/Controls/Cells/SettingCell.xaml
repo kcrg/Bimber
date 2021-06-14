@@ -1,0 +1,30 @@
+﻿<StackLayout x:Class="Bimber.Controls.Cells.SettingCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    HeightRequest="48"
+    Padding="12,0,0,0"
+    xct:TouchEffect.NativeAnimation="True"
+    Orientation="Horizontal">
+    <Label x:Name="titleLabel"
+        VerticalOptions="Center"
+        FontSize="16"
+        Text="Numer telefonu"
+        TextColor="Black" />
+
+    <Label x:Name="descriptionLabel"
+        HorizontalOptions="EndAndExpand"
+        VerticalOptions="Center"
+        FontSize="16"
+        Text="733428869"
+        TextColor="#818181" />
+
+    <Label
+        Margin="0,0,12,0"
+        HorizontalOptions="End"
+        VerticalOptions="Center"
+        FontFamily="FontIcons"
+        FontSize="16"
+        Text="&#xE974;"
+        TextColor="#c2c2c2" />
+</StackLayout>

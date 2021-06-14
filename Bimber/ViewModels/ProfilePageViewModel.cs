@@ -1,10 +1,8 @@
-﻿using Acr.UserDialogs;
-using Bimber.Models;
+﻿using Bimber.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using PropertyChanged;
-using System;
 using System.Collections.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -23,9 +21,7 @@ namespace Bimber.ViewModels
         public ObservableCollection<BimberPromoModel> PromoList { get; set; }
         public DelegateCommand<BimberPromoModel> ItemChangedCommand { get; }
         public DelegateCommand SettingsCommand { get; }
-        public DelegateCommand PhoneTappedCommand { get; }
-        public DelegateCommand EmailTappedCommand { get; }
-        public DelegateCommand OpenGithubCommand { get; }
+        public DelegateCommand GithubCommand { get; }
 
         public ProfilePageViewModel(INavigationService navigationService)
         {
@@ -36,62 +32,22 @@ namespace Bimber.ViewModels
 
             SettingsCommand = new DelegateCommand(() => MainThread.BeginInvokeOnMainThread(async () => await this.navigationService.NavigateAsync("SettingsPage", useModalNavigation: true).ConfigureAwait(false)));
 
-            PhoneTappedCommand = new DelegateCommand(() =>
-            {
-                try
-                {
-                    PhoneDialer.Open("+48733428869");
-                }
-                catch (ArgumentNullException ex)
-                {
-                    ShowToastMessage("The phone number is incorrect.", ex.HResult);
-                }
-                catch (FeatureNotSupportedException ex)
-                {
-                    ShowToastMessage("Device does not support phone calls or does not have phone app.", ex.HResult);
-                }
-                catch (Exception ex)
-                {
-                    ShowToastMessage("An error occurred while opening the phone application.", ex.HResult);
-                }
-            });
-
-            EmailTappedCommand = new DelegateCommand(async () =>
-            {
-                try
-                {
-                    var message = new EmailMessage
-                    {
-                        To = { "kacper@tryniecki.com" },
-                    };
-                    await Email.ComposeAsync(message).ConfigureAwait(false);
-                }
-                catch (FeatureNotSupportedException ex)
-                {
-                    ShowToastMessage("Device does not support E-mail or does not have E-mail app.", ex.HResult);
-                }
-                catch (Exception ex)
-                {
-                    ShowToastMessage("An error occurred while opening the email application.", ex.HResult);
-                }
-            });
-
-            OpenGithubCommand = new DelegateCommand(async () => await Browser.OpenAsync("https://github.com/kcrg", BrowserLaunchMode.SystemPreferred).ConfigureAwait(false));
+            GithubCommand = new DelegateCommand(async () => await Browser.OpenAsync("https://github.com/kcrg", BrowserLaunchMode.SystemPreferred).ConfigureAwait(false));
 
             LoadPromoList();
         }
 
         private void UpdateVisuals(BimberPromoModel bimberPromoModel)
         {
-            ButtonTextColor = bimberPromoModel.ButtonTextColor;
             PromoColor = bimberPromoModel.PromoColor;
 
-            if (ButtonText == bimberPromoModel.ButtonText)
+            if (ButtonText == bimberPromoModel.ButtonText || ButtonTextColor == bimberPromoModel.ButtonTextColor)
             {
                 return;
             }
 
             ButtonText = bimberPromoModel.ButtonText;
+            ButtonTextColor = bimberPromoModel.ButtonTextColor;
         }
 
         private void LoadPromoList()
@@ -177,11 +133,6 @@ namespace Bimber.ViewModels
             PromoList.Add(bimberLock);
             PromoList.Add(bimberRedo);
             PromoList.Add(bimberUnlimited);
-        }
-
-        private void ShowToastMessage(string message, int exceptionCode)
-        {
-            UserDialogs.Instance.Toast(message + "\nError code: " + exceptionCode);
         }
     }
 }

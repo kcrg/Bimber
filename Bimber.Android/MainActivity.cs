@@ -1,10 +1,10 @@
-﻿using Android.App;
+﻿using Acr.UserDialogs;
+using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using AndroidX.Core.View;
 using Prism;
-using Acr.UserDialogs;
 using Prism.Ioc;
 using Xamarin.Essentials;
 using Xamarin.Forms;
